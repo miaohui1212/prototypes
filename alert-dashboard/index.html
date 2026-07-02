@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>告警分析大屏｜Prototypes</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: rgba(255, 255, 255, 0.08);
+      --panel-strong: rgba(255, 255, 255, 0.12);
+      --line: rgba(255, 255, 255, 0.14);
+      --text: #f5f7fb;
+      --muted: #9aa7bd;
+      --blue: #61a7ff;
+      --cyan: #37d6d0;
+      --green: #6ee7a8;
+      --yellow: #ffd166;
+      --red: #ff6b6b;
+      --purple: #b39cff;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(97, 167, 255, .26), transparent 26%),
+        radial-gradient(circle at 80% 0%, rgba(55, 214, 208, .18), transparent 30%),
+        radial-gradient(circle at 70% 90%, rgba(179, 156, 255, .16), transparent 32%),
+        var(--bg);
+    }
+    .shell { padding: 28px; max-width: 1500px; margin: 0 auto; }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+    .brand { display: flex; align-items: center; gap: 14px; }
+    .logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      box-shadow: 0 12px 30px rgba(97, 167, 255, .32);
+    }
+    h1 { font-size: 28px; margin: 0; letter-spacing: -.03em; }
+    .subtitle { color: var(--muted); font-size: 14px; margin-top: 4px; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .pill {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .08);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      backdrop-filter: blur(12px);
+    }
+    .grid { display: grid; gap: 16px; }
+    .kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-bottom: 16px; }
+    .main { grid-template-columns: 1.2fr .8fr; margin-bottom: 16px; }
+    .bottom { grid-template-columns: .85fr 1.15fr; }
+    .card {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.06));
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+    .card-inner { padding: 20px; }
+    .card-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    h2 { font-size: 16px; margin: 0; letter-spacing: -.01em; }
+    .note { color: var(--muted); font-size: 12px; }
+    .kpi { padding: 20px; min-height: 138px; position: relative; }
+    .kpi::after {
+      content: "";
+      position: absolute;
+      right: -30px;
+      top: -30px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: rgba(97, 167, 255, .12);
+    }
+    .kpi-label { color: var(--muted); font-size: 13px; }
+    .kpi-value { font-size: 38px; font-weight: 800; margin: 12px 0 8px; letter-spacing: -.04em; }
+    .kpi-trend { font-size: 13px; color: var(--green); }
+    .kpi.warn .kpi-trend { color: var(--yellow); }
+    .kpi.danger .kpi-trend { color: var(--red); }
+    .bars { display: grid; gap: 14px; }
+    .bar-row { display: grid; grid-template-columns: 110px 1fr 44px; gap: 12px; align-items: center; color: var(--muted); font-size: 13px; }
+    .bar-track { height: 12px; background: rgba(255,255,255,.08); border-radius: 999px; overflow: hidden; }
+    .bar { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--blue), var(--cyan)); }
+    .bar.yellow { background: linear-gradient(90deg, var(--yellow), #ff9f1c); }
+    .bar.red { background: linear-gradient(90deg, var(--red), #ff3b30); }
+    .bar.purple { background: linear-gradient(90deg, var(--purple), var(--blue)); }
+    .donut-wrap { display: grid; grid-template-columns: 220px 1fr; gap: 18px; align-items: center; }
+    .donut {
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      background: conic-gradient(var(--blue) 0 42%, var(--cyan) 42% 69%, var(--purple) 69% 86%, var(--yellow) 86% 100%);
+      position: relative;
+      margin: auto;
+    }
+    .donut::after {
+      content: "告警\A分布";
+      white-space: pre;
+      position: absolute;
+      inset: 36px;
+      border-radius: 50%;
+      background: #0a1424;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: var(--text);
+      font-weight: 800;
+      line-height: 1.4;
+    }
+    .legend { display: grid; gap: 12px; }
+    .legend-item { display: flex; justify-content: space-between; gap: 10px; color: var(--muted); font-size: 13px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 8px; }
+    .timeline { display: grid; grid-template-columns: repeat(12, 1fr); gap: 8px; align-items: end; height: 210px; padding-top: 14px; }
+    .col { border-radius: 12px 12px 4px 4px; background: linear-gradient(180deg, var(--cyan), rgba(55,214,208,.22)); min-height: 24px; position: relative; }
+    .col.red { background: linear-gradient(180deg, var(--red), rgba(255,107,107,.2)); }
+    .col.yellow { background: linear-gradient(180deg, var(--yellow), rgba(255,209,102,.18)); }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 13px 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,.09); font-size: 13px; }
+    th { color: var(--muted); font-weight: 600; }
+    td { color: #dfe7f6; }
+    .badge { padding: 5px 9px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+    .b-red { color: #ffdede; background: rgba(255,107,107,.18); }
+    .b-yellow { color: #ffe8ad; background: rgba(255,209,102,.18); }
+    .b-blue { color: #d5e8ff; background: rgba(97,167,255,.18); }
+    .insights { display: grid; gap: 12px; }
+    .insight {
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 18px;
+      background: rgba(255,255,255,.055);
+    }
+    .insight strong { display: block; margin-bottom: 7px; }
+    .insight p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+    @media (max-width: 980px) {
+      .kpis, .main, .bottom { grid-template-columns: 1fr; }
+      .donut-wrap { grid-template-columns: 1fr; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo"></div>
+        <div>
+          <h1>告警策略分析大屏</h1>
+          <div class="subtitle">面向智算 / K8s / MaaS 平台的告警策略分类、风险洞察与处置建议</div>
+        </div>
+      </div>
+      <div class="actions">
+        <span class="pill">范围：节点 / 管理服务 / 用户 Pod</span>
+        <span class="pill">周期：最近 7 天</span>
+        <span class="pill">状态：演示数据</span>
+      </div>
+    </header>
+
+    <section class="grid kpis">
+      <div class="card kpi">
+        <div class="kpi-label">告警策略总数</div>
+        <div class="kpi-value">128</div>
+        <div class="kpi-trend">+12 本周新增</div>
+      </div>
+      <div class="card kpi danger">
+        <div class="kpi-label">高优先级策略</div>
+        <div class="kpi-value">31</div>
+        <div class="kpi-trend">重点关注 GPU / 节点 / etcd</div>
+      </div>
+      <div class="card kpi warn">
+        <div class="kpi-label">重复/相似策略</div>
+        <div class="kpi-value">18</div>
+        <div class="kpi-trend">建议合并规则</div>
+      </div>
+      <div class="card kpi">
+        <div class="kpi-label">已完成处理</div>
+        <div class="kpi-value">76%</div>
+        <div class="kpi-trend">较上周 +9%</div>
+      </div>
+    </section>
+
+    <section class="grid main">
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-title">
+            <h2>告警对象分类</h2>
+            <span class="note">按策略名称语义归类</span>
+          </div>
+          <div class="bars">
+            <div class="bar-row"><span>监控节点</span><div class="bar-track"><div class="bar red" style="width: 42%"></div></div><strong>42%</strong></div>
+            <div class="bar-row"><span>管理服务</span><div class="bar-track"><div class="bar" style="width: 31%"></div></div><strong>31%</strong></div>
+            <div class="bar-row"><span>用户 Pod</span><div class="bar-track"><div class="bar purple" style="width: 18%"></div></div><strong>18%</strong></div>
+            <div class="bar-row"><span>平台中间件</span><div class="bar-track"><div class="bar yellow" style="width: 9%"></div></div><strong>9%</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-title">
+            <h2>风险等级分布</h2>
+            <span class="note">P0 / P1 / P2 / P3</span>
+          </div>
+          <div class="donut-wrap">
+            <div class="donut"></div>
+            <div class="legend">
+              <div class="legend-item"><span><i class="dot" style="background: var(--blue)"></i>P1 重要告警</span><strong>42%</strong></div>
+              <div class="legend-item"><span><i class="dot" style="background: var(--cyan)"></i>P2 一般告警</span><strong>27%</strong></div>
+              <div class="legend-item"><span><i class="dot" style="background: var(--purple)"></i>P3 提醒类</span><strong>17%</strong></div>
+              <div class="legend-item"><span><i class="dot" style="background: var(--yellow)"></i>P0 严重告警</span><strong>14%</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid bottom">
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-title">
+            <h2>近 12 小时告警趋势</h2>
+            <span class="note">异常峰值识别</span>
+          </div>
+          <div class="timeline">
+            <div class="col" style="height:38%"></div>
+            <div class="col" style="height:44%"></div>
+            <div class="col yellow" style="height:58%"></div>
+            <div class="col" style="height:41%"></div>
+            <div class="col" style="height:35%"></div>
+            <div class="col red" style="height:92%"></div>
+            <div class="col red" style="height:84%"></div>
+            <div class="col yellow" style="height:62%"></div>
+            <div class="col" style="height:49%"></div>
+            <div class="col" style="height:36%"></div>
+            <div class="col" style="height:31%"></div>
+            <div class="col" style="height:45%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-title">
+            <h2>重点告警策略清单</h2>
+            <span class="note">可用于产品文档展示</span>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>策略名称</th>
+                <th>对象</th>
+                <th>等级</th>
+                <th>建议动作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>NodeNotReady / 节点不可用</td>
+                <td>监控节点</td>
+                <td><span class="badge b-red">P0</span></td>
+                <td>关联节点健康、GPU 资源、调度队列</td>
+              </tr>
+              <tr>
+                <td>GPU 利用率异常 / 显存异常</td>
+                <td>监控节点</td>
+                <td><span class="badge b-red">P0</span></td>
+                <td>纳入智算资源池核心告警</td>
+              </tr>
+              <tr>
+                <td>apiserver / etcd / controller 异常</td>
+                <td>管理服务</td>
+                <td><span class="badge b-yellow">P1</span></td>
+                <td>聚合为平台控制面健康告警</td>
+              </tr>
+              <tr>
+                <td>Pod CrashLoopBackOff / OOMKilled</td>
+                <td>用户 Pod</td>
+                <td><span class="badge b-blue">P2</span></td>
+                <td>结合租户、工作负载、业务 ID 展示</td>
+              </tr>
+              <tr>
+                <td>Inference 服务延迟 / 错误率升高</td>
+                <td>用户 Pod</td>
+                <td><span class="badge b-yellow">P1</span></td>
+                <td>关联模型服务 SLA 与调用量</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:16px;">
+      <div class="card-inner">
+        <div class="card-title">
+          <h2>AI 分析结论</h2>
+          <span class="note">适合放在告警策略治理报告中</span>
+        </div>
+        <div class="insights">
+          <div class="insight">
+            <strong>1. 节点类告警是平台稳定性的第一优先级</strong>
+            <p>节点不可用、GPU 异常、磁盘/网络压力会直接影响训练、推理和调度，需要作为 P0/P1 重点治理。</p>
+          </div>
+          <div class="insight">
+            <strong>2. 管理服务告警建议合并为“控制面健康”视图</strong>
+            <p>apiserver、etcd、controller、scheduler 等策略分散，建议在产品侧统一展示为平台管理服务健康度。</p>
+          </div>
+          <div class="insight">
+            <strong>3. 用户 Pod 告警需要关联租户和业务上下文</strong>
+            <p>CrashLoop、OOM、重启、推理延迟等告警不能只展示技术对象，应补充租户、工作负载、模型服务和业务 ID。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
