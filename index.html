@@ -154,5 +154,13 @@
 
     <div class="footer">Repository: miaohui1212/prototypes</div>
   </main>
+
+  <script>
+    if (location.hostname === 'htmlpreview.github.io') {
+      document.querySelectorAll('[data-path]').forEach(function (link) {
+        link.href = 'https://htmlpreview.github.io/?https://github.com/miaohui1212/prototypes/blob/main/' + link.dataset.path;
+      });
+    }
+  </script>
 </body>
 </html>
