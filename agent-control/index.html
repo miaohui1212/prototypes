@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agent 管控台｜原型占位</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --ink: #172026;
+      --muted: #66717c;
+      --line: #d9e0e7;
+      --blue: #1769e0;
+      --teal: #008c8c;
+      --amber: #c97a1a;
+      --shadow: 0 14px 36px rgba(24, 38, 52, .08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+    header {
+      background: #14212b;
+      color: #fff;
+      border-bottom: 4px solid var(--blue);
+    }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+    .hero { padding: 34px 0 30px; }
+    .crumb { display: inline-flex; color: #b8c7d4; text-decoration: none; font-size: 13px; margin-bottom: 18px; }
+    h1 { margin: 0 0 10px; font-size: clamp(30px, 4vw, 44px); line-height: 1.12; }
+    .sub { max-width: 760px; color: #c7d1d9; font-size: 15px; line-height: 1.75; }
+    main { padding: 24px 0 40px; }
+    .status {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .label { color: var(--blue); font-size: 12px; font-weight: 780; text-transform: uppercase; }
+    h2 { margin: 8px 0 10px; font-size: 20px; }
+    p { margin: 0; color: var(--muted); line-height: 1.65; }
+    .pill { display: inline-flex; padding: 4px 10px; border-radius: 999px; background: #fff4df; color: var(--amber); font-size: 12px; font-weight: 760; }
+    .meta { display: grid; gap: 10px; margin-top: 14px; }
+    .meta div { display: flex; justify-content: space-between; gap: 12px; padding-top: 10px; border-top: 1px solid #eef2f6; color: var(--muted); font-size: 13px; }
+    code { color: #274761; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; word-break: break-all; }
+    .modules {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .module h3 { margin: 0 0 8px; font-size: 16px; }
+    .module p { font-size: 13px; }
+    .module { min-height: 150px; }
+    .footer { margin-top: 24px; color: var(--muted); font-size: 13px; }
+    @media (max-width: 860px) {
+      .wrap { padding: 0 16px; }
+      .status, .modules { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap hero">
+      <a class="crumb" href="../">返回原型目录</a>
+      <h1>Agent 管控台</h1>
+      <div class="sub">这是 Agent 管控高保真项目的原型入口占位页。后续可以在当前目录下替换为完整高保真页面，或继续拆分为 Agent 列表、运行态、工具治理、审计分析等多个页面。</div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="status">
+      <div class="panel">
+        <div class="label">Prototype Status</div>
+        <h2>项目正在设计中</h2>
+        <p>当前先建立统一入口和目录结构，保证导航、部署路径和飞书嵌入地址稳定。等高保真稿完成后，可以直接在这个目录内迭代。</p>
+      </div>
+      <div class="panel">
+        <span class="pill">设计中</span>
+        <div class="meta">
+          <div><span>业务域</span><strong>Agent 管控</strong></div>
+          <div><span>目录</span><code>/agent-control/</code></div>
+          <div><span>入口文件</span><code>agent-control/index.html</code></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="modules" aria-label="建议模块">
+      <div class="panel module">
+        <h3>Agent 编排</h3>
+        <p>Agent 创建、版本、角色、提示词、能力边界和发布流程。</p>
+      </div>
+      <div class="panel module">
+        <h3>运行态监控</h3>
+        <p>任务队列、调用链路、成功率、耗时、成本和异常趋势。</p>
+      </div>
+      <div class="panel module">
+        <h3>工具接入</h3>
+        <p>MCP、API、知识库、函数工具和外部系统连接治理。</p>
+      </div>
+      <div class="panel module">
+        <h3>权限治理</h3>
+        <p>用户、角色、空间、数据权限、审批和敏感操作控制。</p>
+      </div>
+      <div class="panel module">
+        <h3>任务审计</h3>
+        <p>执行记录、输入输出、人工接管、回放和问题追踪。</p>
+      </div>
+      <div class="panel module">
+        <h3>运营分析</h3>
+        <p>Agent 使用量、命中场景、价值指标、质量评分和优化建议。</p>
+      </div>
+    </section>
+
+    <div class="footer">Repository: miaohui1212/prototypes</div>
+  </main>
+</body>
+</html>
