@@ -3,128 +3,41 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Agent 管控台｜原型占位</title>
+  <title>AI 应用服务平台｜用户端概览</title>
   <style>
-    :root {
-      --bg: #f6f7f9;
-      --panel: #ffffff;
-      --ink: #172026;
-      --muted: #66717c;
-      --line: #d9e0e7;
-      --blue: #1769e0;
-      --teal: #008c8c;
-      --amber: #c97a1a;
-      --shadow: 0 14px 36px rgba(24, 38, 52, .08);
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
-      letter-spacing: 0;
-    }
-    header {
-      background: #14212b;
-      color: #fff;
-      border-bottom: 4px solid var(--blue);
-    }
-    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
-    .hero { padding: 34px 0 30px; }
-    .crumb { display: inline-flex; color: #b8c7d4; text-decoration: none; font-size: 13px; margin-bottom: 18px; }
-    h1 { margin: 0 0 10px; font-size: clamp(30px, 4vw, 44px); line-height: 1.12; }
-    .sub { max-width: 760px; color: #c7d1d9; font-size: 15px; line-height: 1.75; }
-    main { padding: 24px 0 40px; }
-    .status {
-      display: grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 14px;
-      margin-bottom: 14px;
-    }
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-      padding: 18px;
-    }
-    .label { color: var(--blue); font-size: 12px; font-weight: 780; text-transform: uppercase; }
-    h2 { margin: 8px 0 10px; font-size: 20px; }
-    p { margin: 0; color: var(--muted); line-height: 1.65; }
-    .pill { display: inline-flex; padding: 4px 10px; border-radius: 999px; background: #fff4df; color: var(--amber); font-size: 12px; font-weight: 760; }
-    .meta { display: grid; gap: 10px; margin-top: 14px; }
-    .meta div { display: flex; justify-content: space-between; gap: 12px; padding-top: 10px; border-top: 1px solid #eef2f6; color: var(--muted); font-size: 13px; }
-    code { color: #274761; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; word-break: break-all; }
-    .modules {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-    }
-    .module h3 { margin: 0 0 8px; font-size: 16px; }
-    .module p { font-size: 13px; }
-    .module { min-height: 150px; }
-    .footer { margin-top: 24px; color: var(--muted); font-size: 13px; }
-    @media (max-width: 860px) {
-      .wrap { padding: 0 16px; }
-      .status, .modules { grid-template-columns: 1fr; }
-    }
+    :root{--bg:#f5f7fb;--panel:#fff;--ink:#111827;--muted:#6b7280;--line:#dfe6ef;--blue:#2f6df6;--green:#16b981;--orange:#f4bd75;--shadow:0 18px 44px rgba(15,23,42,.08)}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif}.shell{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh}.side{border-right:1px solid var(--line);background:#fff;padding:22px 16px}.brand{display:flex;align-items:center;gap:12px;margin-bottom:28px}.mark{display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:#111827;color:#fff;font-weight:800}.brand strong{display:block;font-size:18px}.brand span{display:block;color:#9ca3af;font-size:13px}.nav{display:grid;gap:8px}.nav a{display:flex;align-items:center;height:46px;padding:0 14px;border-radius:8px;color:#6b7280;text-decoration:none;font-size:15px}.nav a.active{background:#eef4ff;color:var(--blue);font-weight:750}.main{padding:28px 34px 42px}.intro{padding:0 0 24px}.intro h1{margin:0 0 14px;font-size:30px;line-height:1.2}.intro p{max-width:1180px;margin:0;color:#374151;font-size:16px;line-height:1.85}.actions{margin-top:20px;display:flex;gap:12px}.btn{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 18px;border:1px solid #c9d6eb;border-radius:7px;background:#fff;color:var(--blue);text-decoration:none;font-weight:700}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.section-head{display:flex;align-items:end;justify-content:space-between;margin:18px 0 14px}.section-head h2{margin:0;font-size:22px}.section-head p{margin:8px 0 0;color:#8b95a5}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.app-card{overflow:hidden;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:var(--shadow)}.cover{height:142px;background:linear-gradient(135deg,#eaf3ff,#e6fbfb);position:relative}.cover:before{content:"";position:absolute;right:54px;top:34px;width:144px;height:82px;border-radius:18px;background:linear-gradient(145deg,rgba(74,126,255,.78),rgba(130,220,228,.38));transform:rotate(10deg);box-shadow:0 20px 40px rgba(47,109,246,.16)}.card-body{padding:16px}.title-row{display:flex;justify-content:space-between;gap:10px;align-items:center}.title-row h3{margin:0;font-size:18px}.deploy{color:#111827;font-weight:700}.tag-row{display:flex;gap:8px;margin:12px 0}.tag{display:inline-flex;align-items:center;height:26px;padding:0 12px;border-radius:999px;background:#f7ce91;color:#fff;font-size:13px;font-weight:700}.app-card p{min-height:72px;margin:0;color:#374151;line-height:1.65}.card-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}.small{height:34px;padding:0 14px;font-size:13px}.runtime{margin-top:28px;padding:22px;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:var(--shadow)}.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}.step{padding:10px 28px;border-right:1px solid var(--line)}.step:last-child{border-right:0}.step h3{margin:0 0 12px;font-size:18px}.step p{margin:0 0 16px;color:#4b5563;line-height:1.7}.footer{margin-top:26px;color:#8b95a5;font-size:13px}@media(max-width:1100px){.shell{grid-template-columns:1fr}.side{display:none}.grid,.steps{grid-template-columns:1fr}.step{border-right:0;border-bottom:1px solid var(--line)}}
   </style>
 </head>
 <body>
-  <header>
-    <div class="wrap hero">
-      <a class="crumb" href="../">返回原型目录</a>
-      <h1>Agent 管控台</h1>
-      <div class="sub">这是 Agent 管控高保真项目的原型入口占位页。后续可以在当前目录下替换为完整高保真页面，或继续拆分为 Agent 列表、运行态、工具治理、审计分析等多个页面。</div>
-    </div>
-  </header>
+  <div class="shell">
+    <aside class="side">
+      <div class="brand"><div class="mark">U</div><div><strong>用户端</strong><span>User Console</span></div></div>
+      <nav class="nav"><a class="active">概览</a><a>应用市场</a><a>AI 应用运行时</a><a>可观测</a><a>文件存储</a><a>镜像仓库</a></nav>
+    </aside>
+    <main class="main">
+      <section class="intro">
+        <h1>AI 应用服务平台</h1>
+        <p>面向企业智能体的应用调用与托管平台，提供应用市场、运行时、自定义部署和可观测能力。用户可以通过应用市场按需调用，也可以把自研智能体打包成镜像后托管运行。</p>
+        <div class="actions"><a class="btn primary" href="#market">进入应用市场</a><a class="btn" href="#runtime">创建运行时</a></div>
+      </section>
 
-  <main class="wrap">
-    <section class="status">
-      <div class="panel">
-        <div class="label">Prototype Status</div>
-        <h2>项目正在设计中</h2>
-        <p>当前先建立统一入口和目录结构，保证导航、部署路径和飞书嵌入地址稳定。等高保真稿完成后，可以直接在这个目录内迭代。</p>
-      </div>
-      <div class="panel">
-        <span class="pill">设计中</span>
-        <div class="meta">
-          <div><span>业务域</span><strong>Agent 管控</strong></div>
-          <div><span>目录</span><code>/agent-control/</code></div>
-          <div><span>入口文件</span><code>agent-control/index.html</code></div>
+      <section id="market">
+        <div class="section-head"><div><h2>应用市场快速体验和部署</h2><p>基于平台提供的 AI 应用进行快速部署。</p></div><a class="btn small" href="#market">查看全部</a></div>
+        <div class="grid">
+          <article class="app-card"><div class="cover"></div><div class="card-body"><div class="title-row"><h3>Openclaw V2.13</h3><span class="deploy">208 ↓</span></div><div class="tag-row"><span class="tag">个人助理</span><span class="tag">标签</span></div><p>面向企业智能体场景的应用编排与运行平台，支持快速部署、运行观测和资源管理。</p><div class="card-actions"><a class="btn small">查看说明</a><a class="btn primary small">立即部署</a></div></div></article>
+          <article class="app-card"><div class="cover"></div><div class="card-body"><div class="title-row"><h3>法务小助理</h3><span class="deploy">128 ↓</span></div><div class="tag-row"><span class="tag">办公</span><span class="tag">法务</span></div><p>支持合同条款梳理、风险点提示、合规问答与文档初稿生成。</p><div class="card-actions"><a class="btn small">查看说明</a><a class="btn primary small">立即部署</a></div></div></article>
+          <article class="app-card"><div class="cover"></div><div class="card-body"><div class="title-row"><h3>智能问数助手</h3><span class="deploy">96 ↓</span></div><div class="tag-row"><span class="tag">数据</span><span class="tag">分析</span></div><p>面向企业数据问答，支持自然语言查数、看指标和做分析。</p><div class="card-actions"><a class="btn small">查看说明</a><a class="btn primary small">立即部署</a></div></div></article>
+          <article class="app-card"><div class="cover"></div><div class="card-body"><div class="title-row"><h3>运维助手</h3><span class="deploy">72 ↓</span></div><div class="tag-row"><span class="tag">运维</span><span class="tag">AI</span></div><p>支持对话式云资源巡检、故障诊断和运行状态分析。</p><div class="card-actions"><a class="btn small">查看说明</a><a class="btn primary small">立即部署</a></div></div></article>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="modules" aria-label="建议模块">
-      <div class="panel module">
-        <h3>Agent 编排</h3>
-        <p>Agent 创建、版本、角色、提示词、能力边界和发布流程。</p>
-      </div>
-      <div class="panel module">
-        <h3>运行态监控</h3>
-        <p>任务队列、调用链路、成功率、耗时、成本和异常趋势。</p>
-      </div>
-      <div class="panel module">
-        <h3>工具接入</h3>
-        <p>MCP、API、知识库、函数工具和外部系统连接治理。</p>
-      </div>
-      <div class="panel module">
-        <h3>权限治理</h3>
-        <p>用户、角色、空间、数据权限、审批和敏感操作控制。</p>
-      </div>
-      <div class="panel module">
-        <h3>任务审计</h3>
-        <p>执行记录、输入输出、人工接管、回放和问题追踪。</p>
-      </div>
-      <div class="panel module">
-        <h3>运营分析</h3>
-        <p>Agent 使用量、命中场景、价值指标、质量评分和优化建议。</p>
-      </div>
-    </section>
-
-    <div class="footer">Repository: miaohui1212/prototypes</div>
-  </main>
+      <section id="runtime" class="runtime">
+        <h2>在 AI 应用运行时（Runtime）中部署一个智能体</h2>
+        <div class="steps"><div class="step"><h3>Step 1 搭建智能体并推送镜像</h3><p>平台提供自定义镜像仓库，可将 AI 应用打包成容器镜像推送到平台内。</p><a class="btn small">去推送镜像</a></div><div class="step"><h3>Step 2 自定义部署</h3><p>选择镜像、计算资源和端口号，平台会部署并开通访问地址。</p><a class="btn small">去部署</a></div><div class="step"><h3>Step 3 链路跟踪</h3><p>部署后支持以 Runtime、会话和 Trace 维度监控关键指标。</p><a class="btn small">看监控</a></div></div>
+      </section>
+      <div class="footer">Repository: miaohui1212/prototypes / Agent 平台用户端概览</div>
+    </main>
+  </div>
 </body>
 </html>
