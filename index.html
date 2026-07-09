@@ -90,6 +90,7 @@
     .meta { display: grid; gap: 8px; align-self: end; }
     .meta-row { display: flex; justify-content: space-between; gap: 12px; padding-top: 8px; border-top: 1px solid var(--soft); color: var(--muted); font-size: 12px; }
     .meta-row code { color: #274761; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; word-break: break-all; }
+    .meta-row strong { color: var(--blue); font-size: 13px; font-weight: 760; }
     .footer { margin-top: 26px; color: var(--muted); font-size: 13px; }
     @media (max-width: 760px) {
       .wrap { padding: 0 16px; }
@@ -136,7 +137,14 @@
         </div>
       </a>
 
-      <a class="card" href="./agent-control/" data-domain="agent" data-status="wip" data-path="agent-control/index.html">
+      <a
+        class="card"
+        href="https://htmlpreview.github.io/?https://github.com/miaohui1212/prototypes/blob/main/agent-control/index.html#/overview"
+        data-domain="agent"
+        data-status="wip"
+        data-path="agent-control/index.html"
+        data-route="#/overview"
+      >
         <div class="card-top">
           <span class="badge">Agent 管控</span>
           <span class="badge status wip">设计中</span>
@@ -148,6 +156,7 @@
         <div class="meta">
           <div class="meta-row"><span>目录</span><code>/agent-control/</code></div>
           <div class="meta-row"><span>页面</span><code>agent-control/index.html</code></div>
+          <div class="meta-row"><span>访问地址</span><strong>打开 HTML 页面</strong></div>
         </div>
       </a>
     </section>
@@ -158,7 +167,7 @@
   <script>
     if (location.hostname === 'htmlpreview.github.io') {
       document.querySelectorAll('[data-path]').forEach(function (link) {
-        link.href = 'https://htmlpreview.github.io/?https://github.com/miaohui1212/prototypes/blob/main/' + link.dataset.path;
+        link.href = 'https://htmlpreview.github.io/?https://github.com/miaohui1212/prototypes/blob/main/' + link.dataset.path + (link.dataset.route || '');
       });
     }
   </script>
