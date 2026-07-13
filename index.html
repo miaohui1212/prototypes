@@ -38,47 +38,15 @@
     h1 { margin: 10px 0 12px; font-size: clamp(32px, 5vw, 48px); line-height: 1.1; font-weight: 820; }
     .desc { max-width: 760px; color: #c7d1d9; font-size: 16px; line-height: 1.75; }
     main { padding: 26px 0 42px; }
-    .toolbar {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: center;
-      margin-bottom: 16px;
-    }
+    .toolbar { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 16px; }
     .title h2 { margin: 0; font-size: 22px; }
     .title p { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
-    .summary {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(120px, 1fr));
-      gap: 10px;
-      min-width: 360px;
-    }
-    .summary div {
-      padding: 11px 12px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--panel);
-    }
+    .summary { display: grid; grid-template-columns: repeat(3, minmax(120px, 1fr)); gap: 10px; min-width: 360px; }
+    .summary div { padding: 11px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
     .summary b { display: block; font-size: 20px; }
     .summary span { color: var(--muted); font-size: 12px; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 14px;
-    }
-    .card {
-      display: grid;
-      gap: 18px;
-      min-height: 230px;
-      padding: 18px;
-      color: inherit;
-      text-decoration: none;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
-    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+    .card { display: grid; gap: 18px; min-height: 230px; padding: 18px; color: inherit; text-decoration: none; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; box-shadow: var(--shadow); transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
     .card:hover { transform: translateY(-3px); border-color: rgba(23,105,224,.42); box-shadow: 0 22px 54px rgba(36,48,63,.12); }
     .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
     .badge { display: inline-flex; align-items: center; min-height: 24px; padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 760; background: #e8f2ff; color: var(--blue); }
@@ -92,11 +60,7 @@
     .meta-row code { color: #274761; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; word-break: break-all; }
     .meta-row strong { color: var(--blue); font-size: 13px; font-weight: 760; }
     .footer { margin-top: 26px; color: var(--muted); font-size: 13px; }
-    @media (max-width: 760px) {
-      .wrap { padding: 0 16px; }
-      .toolbar { display: block; }
-      .summary { min-width: 0; margin-top: 14px; grid-template-columns: 1fr 1fr; }
-    }
+    @media (max-width: 760px) { .wrap { padding: 0 16px; } .toolbar { display: block; } .summary { min-width: 0; margin-top: 14px; grid-template-columns: 1fr 1fr; } }
   </style>
 </head>
 <body>
@@ -104,72 +68,31 @@
     <div class="wrap hero">
       <div class="eyebrow">Product Prototype Registry</div>
       <h1>产品原型目录</h1>
-      <div class="desc">集中管理 MaaS、智算私有云、Agent 平台、监控告警、运营管理等产品原型页面。每个原型保持独立目录，便于 Vercel / GitHub Pages 部署，也方便嵌入飞书文档。</div>
+      <div class="desc">集中管理 MaaS、智算私有云、Agent 平台、监控告警、运营管理等产品原型页面。每个原型保持独立目录，便于 GitHub Pages 部署，也方便嵌入飞书文档。</div>
     </div>
   </header>
 
   <main class="wrap">
     <section class="toolbar" aria-label="目录概览">
-      <div class="title">
-        <h2>当前原型</h2>
-        <p>按业务域维护入口、状态和访问路径。</p>
-      </div>
-      <div class="summary">
-        <div><b>2</b><span>原型入口</span></div>
-        <div><b>1</b><span>已可演示</span></div>
-        <div><b>1</b><span>设计中</span></div>
-      </div>
+      <div class="title"><h2>当前原型</h2><p>按业务域维护入口、状态和访问路径。</p></div>
+      <div class="summary"><div><b>2</b><span>原型入口</span></div><div><b>1</b><span>已可演示</span></div><div><b>1</b><span>设计中</span></div></div>
     </section>
 
     <section class="grid" aria-label="原型列表">
-      <a class="card" href="./alert-dashboard/" data-domain="monitoring" data-status="ready" data-path="alert-dashboard/index.html">
-        <div class="card-top">
-          <span class="badge monitor">监控告警</span>
-          <span class="badge status">可演示</span>
-        </div>
-        <div>
-          <h3>告警分析大屏</h3>
-          <p>展示节点、管理服务、用户 Pod 等告警策略的分布、趋势、优先级、风险雷达和治理建议。</p>
-        </div>
-        <div class="meta">
-          <div class="meta-row"><span>目录</span><code>/alert-dashboard/</code></div>
-          <div class="meta-row"><span>页面</span><code>alert-dashboard/index.html</code></div>
-        </div>
+      <a class="card" href="./alert-dashboard/" data-domain="monitoring" data-status="ready">
+        <div class="card-top"><span class="badge monitor">监控告警</span><span class="badge status">可演示</span></div>
+        <div><h3>告警分析大屏</h3><p>展示节点、管理服务、用户 Pod 等告警策略的分布、趋势、优先级、风险雷达和治理建议。</p></div>
+        <div class="meta"><div class="meta-row"><span>目录</span><code>/alert-dashboard/</code></div><div class="meta-row"><span>页面</span><code>alert-dashboard/index.html</code></div></div>
       </a>
 
-      <a
-        class="card"
-        href="https://htmlpreview.github.io/?https://github.com/miaohui1212/prototypes/blob/main/agent-control/index.html#/overview"
-        data-domain="agent"
-        data-status="wip"
-        data-path="agent-control/index.html"
-        data-route="#/overview"
-      >
-        <div class="card-top">
-          <span class="badge">Agent 管控</span>
-          <span class="badge status wip">设计中</span>
-        </div>
-        <div>
-          <h3>Agent 管控台</h3>
-          <p>预留给正在绘制的高保真项目，用于承载 Agent 编排、运行态监控、权限治理、工具接入和任务审计等管控能力。</p>
-        </div>
-        <div class="meta">
-          <div class="meta-row"><span>目录</span><code>/agent-control/</code></div>
-          <div class="meta-row"><span>页面</span><code>agent-control/index.html</code></div>
-          <div class="meta-row"><span>访问地址</span><strong>打开 HTML 页面</strong></div>
-        </div>
+      <a class="card" href="https://miaohui1212.github.io/prototypes/agent-control/" data-domain="agent" data-status="wip">
+        <div class="card-top"><span class="badge">Agent 管控</span><span class="badge status wip">设计中</span></div>
+        <div><h3>Agent 管控台</h3><p>基于 Agent 平台原型构建的用户端和管理端交互页面，包含应用市场、运行时、可观测和管理配置能力。</p></div>
+        <div class="meta"><div class="meta-row"><span>目录</span><code>/agent-control/</code></div><div class="meta-row"><span>页面</span><code>agent-control/index.html</code></div><div class="meta-row"><span>访问地址</span><strong>打开 HTML 页面</strong></div></div>
       </a>
     </section>
 
     <div class="footer">Repository: miaohui1212/prototypes</div>
   </main>
-
-  <script>
-    if (location.hostname === 'htmlpreview.github.io') {
-      document.querySelectorAll('[data-path]').forEach(function (link) {
-        link.href = 'https://htmlpreview.github.io/?https://github.com/miaohui1212/prototypes/blob/main/' + link.dataset.path + (link.dataset.route || '');
-      });
-    }
-  </script>
 </body>
 </html>
